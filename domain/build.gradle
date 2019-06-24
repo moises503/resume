@@ -4,6 +4,7 @@ apply plugin: 'kotlin'
 ext {
     androidRxLibraryVersion = '2.1.0'
     rxJava = '2.0.2'
+    retrofitVersion = '2.5.0'
 }
 
 dependencies {
@@ -13,6 +14,8 @@ dependencies {
     //RXJava & RXAndroid
     implementation "io.reactivex.rxjava2:rxandroid:$androidRxLibraryVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rxJava"
+
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 }
 
 sourceCompatibility = "7"

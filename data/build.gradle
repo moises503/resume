@@ -11,10 +11,16 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
+    //RXJava & RXAndroid
+    implementation "io.reactivex.rxjava2:rxandroid:$androidRxLibraryVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJava"
+
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
-    implementation project(path: ':domain')
+
+    
+    implementation project(':domain')
 }
 
 sourceCompatibility = "7"

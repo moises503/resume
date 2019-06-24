@@ -1,4 +1,4 @@
-package com.moises.data.executor
+package com.moises.data.core.executor
 
 import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
