@@ -9,6 +9,7 @@ class ResumePresenterImpl(private val resumeUseCase: ResumeUseCase, private val 
     : BasePresenter(), ResumePresenter {
 
     override fun attemptGetResume() {
+        resumeView.hideViews()
         resumeView.showLoading()
         super.addDisposable(resumeUseCase.execute(ResumeObserver(), Unit))
     }
@@ -20,6 +21,7 @@ class ResumePresenterImpl(private val resumeUseCase: ResumeUseCase, private val 
     private inner class ResumeObserver : Observer<Profile>() {
         override fun onSuccess(t: Profile) {
             resumeView.hideLoading()
+            resumeView.showViews()
             resumeView.displayProfile(t)
         }
 
