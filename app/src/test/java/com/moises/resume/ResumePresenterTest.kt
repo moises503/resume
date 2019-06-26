@@ -6,7 +6,6 @@ import com.moises.data.usecase.ResumeUseCase
 import com.moises.presentation.resume.ResumePresenter
 import com.moises.presentation.resume.ResumePresenterImpl
 import com.moises.presentation.resume.ResumeView
-import com.moises.resume.core.UIThread
 import com.nhaarman.mockitokotlin2.*
 import org.junit.Before
 import org.junit.Rule

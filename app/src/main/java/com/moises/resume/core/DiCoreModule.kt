@@ -2,14 +2,16 @@ package com.moises.resume.core
 
 import android.app.Activity
 import android.support.v4.app.Fragment
-import com.moises.data.core.executor.JobThread
-import com.moises.domain.executor.JobScheduler
-import com.moises.domain.executor.UIScheduler
+import com.moises.domain.core.executor.JobScheduler
+import com.moises.domain.core.executor.UIScheduler
+import com.moises.resume.core.job.JobThread
+import com.moises.resume.core.job.UIThread
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -61,6 +63,7 @@ class DiCoreModule {
                     "e849d7b3c0974ca466192242e5985106b1e024f6/")
             .client(httpClient)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
     }
 

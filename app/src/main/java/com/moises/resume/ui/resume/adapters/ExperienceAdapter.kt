@@ -3,7 +3,7 @@ package com.moises.resume.ui.resume.adapters
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.moises.data.model.Experience
+import com.moises.domain.resume.model.Experience
 import com.moises.resume.R
 import com.moises.resume.core.inflate
 import kotlinx.android.synthetic.main.experience_item.view.*

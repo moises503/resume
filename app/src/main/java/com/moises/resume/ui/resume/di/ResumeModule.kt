@@ -1,14 +1,13 @@
 package com.moises.resume.ui.resume.di
-
-import com.moises.data.model.mapper.ResumeResponseToProfile
-import com.moises.data.provider.ResumeProvider
-import com.moises.data.provider.ResumeProviderImpl
-import com.moises.data.source.ResumeDataSource
-import com.moises.data.source.ResumeDataSourceImpl
-import com.moises.data.source.ResumeService
-import com.moises.domain.executor.JobScheduler
-import com.moises.domain.executor.UIScheduler
-import com.moises.data.usecase.ResumeUseCase
+import com.moises.data.resume.datasource.EndPoint
+import com.moises.data.resume.datasource.ResumeRemoteDataSource
+import com.moises.data.resume.datasource.ResumeRemoteDataSourceImpl
+import com.moises.data.resume.repository.ResumeRepository
+import com.moises.data.resume.repository.ResumeRepositoryImpl
+import com.moises.domain.core.executor.JobScheduler
+import com.moises.domain.core.executor.UIScheduler
+import com.moises.domain.resume.mapper.ResumeResponseToProfile
+import com.moises.domain.resume.usecase.ResumeUseCase
 import com.moises.presentation.resume.ResumePresenter
 import com.moises.presentation.resume.ResumePresenterImpl
 import com.moises.presentation.resume.ResumeView
@@ -18,18 +17,18 @@ import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
-class ResumeModule(val resumeView: ResumeView) {
+class ResumeModule (val resumeView: ResumeView) {
 
     @Provides
     @Singleton
-    fun provideService(retrofit: Retrofit) : ResumeService{
-        return retrofit.create(ResumeService::class.java)
+    fun provideService(retrofit: Retrofit) : EndPoint{
+        return retrofit.create(EndPoint::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideDataSource(resumeService: ResumeService) : ResumeDataSource {
-        return ResumeDataSourceImpl(resumeService)
+    fun provideDataSource(endPoint: EndPoint) : ResumeRemoteDataSource {
+        return ResumeRemoteDataSourceImpl(endPoint)
     }
 
     @Provides
@@ -40,16 +39,17 @@ class ResumeModule(val resumeView: ResumeView) {
 
     @Provides
     @Singleton
-    fun provideProvider(resumeDataSource: ResumeDataSource, resumeResponseToProfile: ResumeResponseToProfile)
-    : ResumeProvider {
-        return ResumeProviderImpl(resumeDataSource, resumeResponseToProfile)
+    fun provideRepository(resumeRemoteDataSource: ResumeRemoteDataSource)
+            : ResumeRepository {
+        return ResumeRepositoryImpl(resumeRemoteDataSource)
     }
 
     @Provides
     @Singleton
-    fun provideUseCase(resumeProvider: ResumeProvider, uiScheduler: UIScheduler, jobScheduler: JobScheduler)
+    fun provideUseCase(resumeRepository: ResumeRepository, jobScheduler: JobScheduler, uiScheduler: UIScheduler,
+                       mapper : ResumeResponseToProfile)
             : ResumeUseCase {
-        return ResumeUseCase(resumeProvider, uiScheduler, jobScheduler)
+        return ResumeUseCase(resumeRepository, jobScheduler, uiScheduler, mapper)
     }
 
     @Provides

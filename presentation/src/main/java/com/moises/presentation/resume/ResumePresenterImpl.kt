@@ -1,9 +1,9 @@
 package com.moises.presentation.resume
 
-import com.moises.data.model.Profile
 import com.moises.domain.Observer
-import com.moises.data.usecase.ResumeUseCase
-import com.moises.presentation.BasePresenter
+import com.moises.domain.resume.model.Profile
+import com.moises.domain.resume.usecase.ResumeUseCase
+import com.moises.presentation.core.BasePresenter
 
 class ResumePresenterImpl(private val resumeUseCase: ResumeUseCase, private val resumeView: ResumeView)
     : BasePresenter(), ResumePresenter {
@@ -11,11 +11,11 @@ class ResumePresenterImpl(private val resumeUseCase: ResumeUseCase, private val 
     override fun attemptGetResume() {
         resumeView.hideViews()
         resumeView.showLoading()
-        super.addDisposable(resumeUseCase.execute(ResumeObserver(), Unit))
+        resumeUseCase.execute(Unit, ResumeObserver())
     }
 
-    override fun onDestroy() {
-        super.destroy()
+    override fun onStop() {
+        resumeUseCase.dispose()
     }
 
     private inner class ResumeObserver : Observer<Profile>() {

@@ -5,6 +5,7 @@ ext {
     androidRxLibraryVersion = '2.1.0'
     rxJava = '2.0.2'
     retrofitVersion = '2.5.0'
+    rxCallAdapter = '2.4.0'
 }
 
 dependencies {
@@ -19,8 +20,6 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 
-    
-    implementation project(':domain')
 }
 
 sourceCompatibility = "7"

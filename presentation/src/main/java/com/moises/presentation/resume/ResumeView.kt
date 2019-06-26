@@ -1,6 +1,6 @@
 package com.moises.presentation.resume
 
-import com.moises.data.model.Profile
+import com.moises.domain.resume.model.Profile
 
 interface ResumeView {
     fun showLoading()

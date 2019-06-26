@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
-import com.moises.data.model.Experience
-import com.moises.data.model.Profile
+import com.moises.domain.resume.model.Experience
+import com.moises.domain.resume.model.Profile
 import com.moises.presentation.resume.ResumePresenter
 import com.moises.presentation.resume.ResumeView
 import com.moises.resume.R
@@ -24,7 +24,12 @@ class ResumeActivity : AppCompatActivity(), ResumeView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupViews()
-        setupInjectionAndGetResume()
+        setupInjection()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.attemptGetResume()
     }
 
     override fun showLoading() {
@@ -57,14 +62,13 @@ class ResumeActivity : AppCompatActivity(), ResumeView {
         this.showViews(View.GONE)
     }
 
-    override fun onDestroy() {
-        presenter.onDestroy()
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
+        presenter.onStop()
     }
 
-    private fun setupInjectionAndGetResume() {
+    private fun setupInjection() {
         presenter = (application as ResumeApp).getResumeComponent(this, this).getResumePresenter()
-        presenter.attemptGetResume()
     }
 
     private fun setupViews() {
