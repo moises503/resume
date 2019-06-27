@@ -1,11 +1,10 @@
 package com.moises.data.resume.repository
 
-import com.moises.data.resume.datasource.ResumeRemoteDataSource
-import com.moises.data.resume.model.Resume
+import com.moises.domain.resume.datasource.ResumeDataSource
+import com.moises.domain.resume.model.Profile
+import com.moises.domain.resume.repository.ResumeRepository
 import io.reactivex.Single
 
-class ResumeRepositoryImpl(private val resumeRemoteDataSource: ResumeRemoteDataSource) : ResumeRepository {
-    override fun attemptGetResume(): Single<Resume> {
-        return resumeRemoteDataSource.attemptGetResume()
-    }
+class ResumeRepositoryImpl(private val resumeDataSource: ResumeDataSource) : ResumeRepository{
+    override fun attemptGetResume(): Single<Profile> = resumeDataSource.getResume()
 }

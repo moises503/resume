@@ -1,4 +1,4 @@
-package com.moises.domain
+package com.moises.domain.core
 
 import io.reactivex.observers.DisposableSingleObserver
 

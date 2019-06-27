@@ -1,7 +1,7 @@
-package com.moises.domain.resume.mapper
+package com.moises.data.resume.mapper
 
 import com.moises.data.resume.model.Resume
-import com.moises.domain.core.mapper.Transformer
+import com.moises.data.core.mapper.Transformer
 import com.moises.domain.resume.model.Experience
 import com.moises.domain.resume.model.Profile
 

@@ -1,4 +1,4 @@
-package com.moises.domain.core.mapper
+package com.moises.data.core.mapper
 
 import java.lang.UnsupportedOperationException
 

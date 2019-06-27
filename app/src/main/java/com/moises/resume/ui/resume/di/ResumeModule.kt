@@ -1,12 +1,13 @@
 package com.moises.resume.ui.resume.di
+
 import com.moises.data.resume.datasource.EndPoint
-import com.moises.data.resume.datasource.ResumeRemoteDataSource
-import com.moises.data.resume.datasource.ResumeRemoteDataSourceImpl
-import com.moises.data.resume.repository.ResumeRepository
+import com.moises.data.resume.datasource.ResumeDataSourceImpl
+import com.moises.data.resume.mapper.ResumeResponseToProfile
 import com.moises.data.resume.repository.ResumeRepositoryImpl
 import com.moises.domain.core.executor.JobScheduler
 import com.moises.domain.core.executor.UIScheduler
-import com.moises.domain.resume.mapper.ResumeResponseToProfile
+import com.moises.domain.resume.datasource.ResumeDataSource
+import com.moises.domain.resume.repository.ResumeRepository
 import com.moises.domain.resume.usecase.ResumeUseCase
 import com.moises.presentation.resume.ResumePresenter
 import com.moises.presentation.resume.ResumePresenterImpl
@@ -27,29 +28,29 @@ class ResumeModule (val resumeView: ResumeView) {
 
     @Provides
     @Singleton
-    fun provideDataSource(endPoint: EndPoint) : ResumeRemoteDataSource {
-        return ResumeRemoteDataSourceImpl(endPoint)
-    }
-
-    @Provides
-    @Singleton
     fun provideMapper() : ResumeResponseToProfile {
         return ResumeResponseToProfile()
     }
 
     @Provides
     @Singleton
-    fun provideRepository(resumeRemoteDataSource: ResumeRemoteDataSource)
+    fun provideDataSource(endPoint: EndPoint, mapper : ResumeResponseToProfile) : ResumeDataSource {
+        return ResumeDataSourceImpl(endPoint, mapper)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideRepository(resumeDataSource: ResumeDataSource)
             : ResumeRepository {
-        return ResumeRepositoryImpl(resumeRemoteDataSource)
+        return ResumeRepositoryImpl(resumeDataSource)
     }
 
     @Provides
     @Singleton
-    fun provideUseCase(resumeRepository: ResumeRepository, jobScheduler: JobScheduler, uiScheduler: UIScheduler,
-                       mapper : ResumeResponseToProfile)
+    fun provideUseCase(resumeRepository: ResumeRepository, jobScheduler: JobScheduler, uiScheduler: UIScheduler)
             : ResumeUseCase {
-        return ResumeUseCase(resumeRepository, jobScheduler, uiScheduler, mapper)
+        return ResumeUseCase(resumeRepository, jobScheduler, uiScheduler)
     }
 
     @Provides
@@ -64,3 +65,4 @@ class ResumeModule (val resumeView: ResumeView) {
         return ResumePresenterImpl(resumeUseCase, resumeView)
     }
 }
+

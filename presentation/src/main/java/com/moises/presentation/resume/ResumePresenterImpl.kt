@@ -1,6 +1,6 @@
 package com.moises.presentation.resume
 
-import com.moises.domain.Observer
+import com.moises.domain.core.Observer
 import com.moises.domain.resume.model.Profile
 import com.moises.domain.resume.usecase.ResumeUseCase
 import com.moises.presentation.core.BasePresenter
