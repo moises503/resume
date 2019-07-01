@@ -5,17 +5,22 @@ import android.content.Intent
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.matcher.ViewMatchers
+import android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
-import com.moises.domain.core.Observer
 import com.moises.domain.resume.model.Profile
+import com.moises.domain.resume.repository.ResumeRepository
 import com.moises.domain.resume.usecase.ResumeUseCase
 import com.moises.presentation.resume.ResumePresenter
 import com.moises.presentation.resume.ResumePresenterImpl
+import com.moises.resume.core.job.JobThread
+import com.moises.resume.core.job.UIThread
 import com.moises.resume.ui.resume.ResumeActivity
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
+import io.reactivex.Single
+import org.hamcrest.Matchers.not
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -28,7 +33,7 @@ class ResumeActivityInstrumentedTest {
 
 
     lateinit var useCase: ResumeUseCase
-    lateinit var resumeObserver : Observer<Profile>
+    lateinit var resumeRepository: ResumeRepository
     lateinit var presenter : ResumePresenter
     lateinit var profile : Profile
 
@@ -44,19 +49,33 @@ class ResumeActivityInstrumentedTest {
         val activity = activityTestRule.activity
         System.setProperty("org.mockito.android.target", activity.getDir("target", Context.MODE_PRIVATE).path)
         profile = ResumeSeeder.transform()
-        useCase = mock()
-        resumeObserver = mock()
+        resumeRepository = mock()
+        useCase =  ResumeUseCase(resumeRepository, JobThread(), UIThread())
         presenter = ResumePresenterImpl(useCase, activity)
-        whenever(useCase.execute(Unit, resumeObserver)).then {
-            activity.hideLoading()
-            activity.showViews()
-            activity.displayProfile(profile)
-        }
+        whenever(resumeRepository.attemptGetResume()).thenReturn(Single.just(profile))
     }
 
     @Test
     fun whenGetResumeHideLoadingAndShowViews() {
-        presenter.attemptGetResume()
-        onView(withId(R.id.pbLoader)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        onView(withId(R.id.pbLoader)).check(ViewAssertions.matches(not(ViewMatchers.isDisplayed())))
+        onView(withId(R.id.txtFullName)).check(ViewAssertions
+            .matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+        onView(withId(R.id.txtContactInfo)).check(ViewAssertions
+            .matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+        onView(withId(R.id.txtLibs)).check(ViewAssertions
+            .matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+        onView(withId(R.id.txtPatterns)).check(ViewAssertions
+            .matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+        onView(withId(R.id.txtExperienceText)).check(ViewAssertions
+            .matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+        onView(withId(R.id.rvExperience)).check(ViewAssertions
+            .matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+        onView(withId(R.id.txtLibsText)).check(ViewAssertions
+            .matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+        onView(withId(R.id.txtPatternsText)).check(ViewAssertions
+            .matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+        onView(withId(R.id.imgvPhoto)).check(ViewAssertions
+            .matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
     }
 }
