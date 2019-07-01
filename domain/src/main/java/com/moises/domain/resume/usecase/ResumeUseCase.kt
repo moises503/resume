@@ -6,23 +6,17 @@ import com.moises.domain.core.executor.UIScheduler
 import com.moises.domain.resume.model.Profile
 import com.moises.domain.resume.repository.ResumeRepository
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 
-class ResumeUseCase(private val resumeRepository: ResumeRepository,
-                    private val jobScheduler: JobScheduler,
-                    private val uiScheduler: UIScheduler)
+class ResumeUseCase(private val resumeRepository: ResumeRepository, jobScheduler: JobScheduler, uiScheduler: UIScheduler)
     : SingleUseCase<Unit, Profile>(uiScheduler, jobScheduler) {
-
 
     override fun buildUseCase(params: Unit?): Single<Profile> {
         return params?.let {
             resumeRepository.attemptGetResume()
-                .subscribeOn(Schedulers.from(jobScheduler))
-                .observeOn(uiScheduler.getScheduler())
-        } ?: Single.error(AttemptLoginExceptions.GenericException())
+        } ?: Single.error(AttemptResumeExceptions.GenericException())
     }
 
-    sealed class AttemptLoginExceptions {
+    sealed class AttemptResumeExceptions {
         class GenericException : Exception()
     }
 }
