@@ -55,7 +55,8 @@ class ResumeActivityInstrumentedTest {
     }
 
     @Test
-    fun useAppContext() {
+    fun whenGetResumeHideLoadingAndShowViews() {
+        presenter.attemptGetResume()
         onView(withId(R.id.pbLoader)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 }
