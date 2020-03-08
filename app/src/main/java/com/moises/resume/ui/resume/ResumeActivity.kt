@@ -1,11 +1,10 @@
 package com.moises.resume.ui.resume
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
-import com.moises.domain.resume.model.Experience
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.moises.domain.resume.model.Profile
 import com.moises.presentation.resume.ResumePresenter
 import com.moises.presentation.resume.ResumeView
@@ -47,7 +46,7 @@ class ResumeActivity : AppCompatActivity(), ResumeView {
         txtContactInfo.text = String.format(profile.contactInfo!!, "E-mail", "Teléfono")
         txtLibs.text = profile.libs
         txtPatterns.text = profile.archs
-        adapter.updateDataSet(profile.experience as List<Experience>)
+        adapter.updateDataSet(profile.experience.orEmpty())
     }
 
     override fun showError(message: String) {
@@ -73,7 +72,7 @@ class ResumeActivity : AppCompatActivity(), ResumeView {
 
     private fun setupViews() {
         adapter = ExperienceAdapter(emptyList())
-        rvExperience.apply {
+        rvExperience?.apply {
             layoutManager = LinearLayoutManager(this@ResumeActivity)
             adapter = this@ResumeActivity.adapter
             isNestedScrollingEnabled = false

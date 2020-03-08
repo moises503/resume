@@ -1,7 +1,7 @@
 package com.moises.resume.core
 
 import android.app.Activity
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.moises.domain.core.executor.JobScheduler
 import com.moises.domain.core.executor.UIScheduler
 import com.moises.resume.core.job.JobThread
@@ -50,7 +50,7 @@ class DiCoreModule {
             val builder = request.newBuilder()
                 .addHeader("Accept", "application/json")
                 .addHeader("Content-Type","application/json")
-                .method(request.method(), request.body())
+                .method(request.method, request.body)
             it.proceed(builder.build())
         }.build()
     }
