@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.moises.domain.resume.model.Profile
@@ -13,6 +12,7 @@ import com.moises.presentation.resume.ResumePresenter
 import com.moises.presentation.resume.ResumeView
 import com.moises.resume.R
 import com.moises.resume.ResumeApp
+import com.moises.resume.core.toast
 import com.moises.resume.ui.resume.adapters.ExperienceAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_resume.*
@@ -59,7 +59,7 @@ class ResumeFragment : Fragment(), ResumeView {
     }
 
     override fun showError(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+        context?.toast(message)
     }
 
     override fun showViews() {

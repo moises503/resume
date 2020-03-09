@@ -10,9 +10,11 @@ import com.moises.presentation.resume.ResumePresenter
 import com.moises.presentation.resume.ResumeView
 import com.moises.resume.R
 import com.moises.resume.ResumeApp
+import com.moises.resume.core.setToolbar
 import com.moises.resume.ui.resume.adapters.ExperienceAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.appbar_toolbar.*
 
 class ResumeActivity : AppCompatActivity(), ResumeView {
 
@@ -42,8 +44,8 @@ class ResumeActivity : AppCompatActivity(), ResumeView {
     override fun displayProfile(profile: Profile) {
         Picasso.get().load(profile.photo).fit()
             .centerCrop().into(imgvPhoto)
-        txtFullName.text = String.format(profile.fullName!!, "Nombre")
-        txtContactInfo.text = String.format(profile.contactInfo!!, "E-mail", "Teléfono")
+        txtFullName.text = String.format(profile.fullName.orEmpty(), "Nombre")
+        txtContactInfo.text = String.format(profile.contactInfo.orEmpty(), "E-mail", "Teléfono")
         txtLibs.text = profile.libs
         txtPatterns.text = profile.archs
         adapter.updateDataSet(profile.experience.orEmpty())
@@ -72,6 +74,7 @@ class ResumeActivity : AppCompatActivity(), ResumeView {
 
     private fun setupViews() {
         adapter = ExperienceAdapter(emptyList())
+        this.setToolbar(toolbar, toolbar_title, getString(R.string.title_resume), false)
         rvExperience?.apply {
             layoutManager = LinearLayoutManager(this@ResumeActivity)
             adapter = this@ResumeActivity.adapter

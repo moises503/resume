@@ -2,13 +2,13 @@ package com.moises.resume
 
 import android.content.Context
 import android.content.Intent
-import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.assertion.ViewAssertions
-import android.support.test.espresso.matcher.ViewMatchers
-import android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
-import android.support.test.espresso.matcher.ViewMatchers.withId
-import android.support.test.rule.ActivityTestRule
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+import androidx.test.rule.ActivityTestRule
 import com.moises.domain.resume.model.Profile
 import com.moises.domain.resume.repository.ResumeRepository
 import com.moises.domain.resume.usecase.ResumeUseCase
@@ -28,7 +28,7 @@ import org.junit.runner.RunWith
 import org.junit.Before
 import org.junit.Rule
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(AndroidJUnit4ClassRunner::class)
 class ResumeActivityInstrumentedTest {
 
 
@@ -76,6 +76,5 @@ class ResumeActivityInstrumentedTest {
             .matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
         onView(withId(R.id.imgvPhoto)).check(ViewAssertions
             .matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-
     }
 }

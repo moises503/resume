@@ -5,7 +5,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/white"
         tools:context=".ui.resume.ResumeActivity">
+
     <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
             android:layout_height="0dp" android:fillViewport="true"
@@ -39,7 +41,7 @@
                     app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="18dp"
                     android:layout_marginTop="18dp" app:layout_constraintTop_toBottomOf="@+id/imgvPhoto"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="18dp"
-                    android:textSize="16sp" android:textStyle="bold"/>
+                    android:textSize="16sp" android:fontFamily="@font/googlesans_bold"/>
             <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -47,7 +49,7 @@
                     app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="18dp"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="18dp"
                     app:layout_constraintHorizontal_bias="0.0" app:layout_constraintTop_toBottomOf="@+id/txtFullName"
-                    android:layout_marginTop="10dp" android:textSize="16sp" android:textStyle="bold"/>
+                    android:layout_marginTop="10dp" android:textSize="16sp" android:fontFamily="@font/googlesans_bold"/>
             <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -57,7 +59,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     android:text="Experiencia" android:layout_marginTop="10dp"
                     app:layout_constraintTop_toBottomOf="@+id/txtContactInfo" android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:fontFamily="@font/googlesans_bold"/>
             <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -75,11 +77,12 @@
                     app:layout_constraintTop_toBottomOf="@+id/rvExperience"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="18dp"
                     app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="18dp" android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:fontFamily="@font/googlesans_bold"/>
             <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/txtLibs"
+                    android:fontFamily="@font/googlesans_regular"
                     app:layout_constraintTop_toBottomOf="@+id/txtLibsText" app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="18dp" app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="18dp" android:layout_marginTop="8dp" android:textSize="16sp"/>
@@ -91,13 +94,14 @@
                     app:layout_constraintTop_toBottomOf="@+id/txtLibs" app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="18dp" app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="18dp" android:layout_marginTop="8dp" android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:fontFamily="@font/googlesans_bold"/>
             <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/txtPatterns"
                     app:layout_constraintTop_toBottomOf="@+id/txtPatternsText"
                     app:layout_constraintStart_toStartOf="parent"
+                    android:fontFamily="@font/googlesans_regular"
                     android:layout_marginStart="18dp" app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="18dp" android:layout_marginTop="8dp" android:textSize="16sp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
