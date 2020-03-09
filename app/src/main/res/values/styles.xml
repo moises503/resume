@@ -20,4 +20,8 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="GoogleSansBoldTextAppearance">
+        <item name="android:fontFamily">@font/googlesans_bold</item>
+    </style>
 </resources>

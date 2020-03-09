@@ -22,3 +22,10 @@ fun AppCompatActivity.setToolbar(toolbar : Toolbar, toolbarTitle : TextView,
     toolbarTitle.text = title
     this.supportActionBar?.setDisplayHomeAsUpEnabled(homeAsUpEnabled)
 }
+
+fun AppCompatActivity.setToolbar(toolbar : Toolbar, title : String, textStyle : Int, homeAsUpEnabled : Boolean) {
+    toolbar.setTitleTextAppearance(this, textStyle)
+    toolbar.title = title
+    this.setSupportActionBar(toolbar)
+    this.supportActionBar?.setDisplayHomeAsUpEnabled(homeAsUpEnabled)
+}
