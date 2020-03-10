@@ -40,7 +40,7 @@ class BottomMenuActivityInstrumentedTest {
     }
 
     @Test
-    fun whenShowsFragmentSkillsShouldSeeViewResumeInformation() {
+    fun whenShowsFragmentResumeIsDisplayingShouldSeeViewResumeInformation() {
         onView(withId(R.id.pbLoader)).check(matches(Matchers.not(isDisplayed())))
         onView(withId(R.id.txtFullName)).check(
             matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
@@ -59,6 +59,15 @@ class BottomMenuActivityInstrumentedTest {
         onView(withId(R.id.txtPatternsText)).check(
             matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
         onView(withId(R.id.imgvPhoto)).check(
+            matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+    }
+
+    @Test
+    fun whenShowsFragmentSkillsetIsDisplayingIShouldSeeViewSkillsetInformation() {
+        onView(withId(R.id.navigation_skills)).perform(click())
+        onView(withId(R.id.fragment_skills)).check(matches(isDisplayed()))
+        onView(withId(R.id.pbLoader)).check(matches(Matchers.not(isDisplayed())))
+        onView(withId(R.id.lstCourses)).check(
             matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
     }
 }
