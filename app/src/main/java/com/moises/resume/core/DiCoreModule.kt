@@ -59,8 +59,7 @@ class DiCoreModule {
     @Singleton
     fun providesRetrofit(httpClient : OkHttpClient) : Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://gist.githubusercontent.com/moises503/16c5e1a4572791e1eaf44ea5d3af7d48/raw/" +
-                    "e849d7b3c0974ca466192242e5985106b1e024f6/")
+            .baseUrl("https://gist.githubusercontent.com/moises503/")
             .client(httpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

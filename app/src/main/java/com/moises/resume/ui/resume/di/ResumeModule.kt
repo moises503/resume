@@ -18,7 +18,7 @@ import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
-class ResumeModule (val resumeView: ResumeView) {
+class ResumeModule (private val resumeView: ResumeView) {
 
     @Provides
     @Singleton

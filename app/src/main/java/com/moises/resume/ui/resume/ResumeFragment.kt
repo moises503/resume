@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_resume.*
 
 class ResumeFragment : Fragment(), ResumeView {
 
-    private lateinit var presenter: ResumePresenter
+    private var presenter: ResumePresenter? = null
     private lateinit var experienceAdapter: ExperienceAdapter
 
     override fun onCreateView(
@@ -38,7 +38,7 @@ class ResumeFragment : Fragment(), ResumeView {
 
     override fun onResume() {
         super.onResume()
-        presenter.attemptGetResume()
+        presenter?.attemptGetResume()
     }
 
     override fun showLoading() {
@@ -72,7 +72,7 @@ class ResumeFragment : Fragment(), ResumeView {
     }
 
     override fun onStop() {
-        presenter.onStop()
+        presenter?.onStop()
         super.onStop()
     }
 

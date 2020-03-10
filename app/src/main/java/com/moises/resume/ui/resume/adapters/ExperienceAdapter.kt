@@ -8,7 +8,7 @@ import com.moises.resume.R
 import com.moises.resume.core.inflate
 import kotlinx.android.synthetic.main.experience_item.view.*
 
-class ExperienceAdapter(var experienceList : List<Experience>) :
+class ExperienceAdapter(private var experienceList : List<Experience>) :
     RecyclerView.Adapter<ExperienceAdapter.ExperienceViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ExperienceViewHolder =

@@ -12,7 +12,7 @@
             tools:layout="@layout/fragment_resume" />
     <fragment
             android:id="@+id/navigation_skills"
-            android:name="com.moises.resume.ui.skills.SkillsFragment"
+            android:name="com.moises.resume.ui.skillset.SkillsetFragment"
             android:label="@string/title_skills"
             tools:layout="@layout/fragment_skills" />
 

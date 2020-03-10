@@ -1,6 +1,7 @@
 package com.moises.domain.resume.usecase
 
 import com.moises.domain.core.SingleUseCase
+import com.moises.domain.core.exceptions.NullParametersException
 import com.moises.domain.core.executor.JobScheduler
 import com.moises.domain.core.executor.UIScheduler
 import com.moises.domain.resume.model.Profile
@@ -13,10 +14,6 @@ class ResumeUseCase(private val resumeRepository: ResumeRepository, jobScheduler
     override fun buildUseCase(params: Unit?): Single<Profile> {
         return params?.let {
             resumeRepository.attemptGetResume()
-        } ?: Single.error(AttemptResumeExceptions.GenericException())
-    }
-
-    sealed class AttemptResumeExceptions {
-        class GenericException : Exception()
+        } ?: Single.error(NullParametersException("parameters can not be null"))
     }
 }

@@ -6,7 +6,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(ResumeModule::class, DiCoreModule::class))
+@Component(modules = [ResumeModule::class, DiCoreModule::class])
 interface ResumeComponent {
     fun getResumePresenter() : ResumePresenter
 }
