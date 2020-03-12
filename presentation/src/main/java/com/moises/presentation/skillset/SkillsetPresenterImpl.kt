@@ -10,10 +10,10 @@ class SkillsetPresenterImpl(
     private val skillsetView: SkillsetView
 ) : SkillsetPresenter, BasePresenter() {
 
-    override fun retrieveSkillset() {
+    override fun retrieveSkillset(hasInternetConnection : Boolean) {
         skillsetView.showLoader()
         skillsetView.hideUIElements()
-        skillsetUseCase.execute(Unit, SkillsetObserver())
+        skillsetUseCase.execute(SkillsetUseCase.SkillsetParams(hasInternetConnection), SkillsetObserver())
     }
 
     override fun onStop() {

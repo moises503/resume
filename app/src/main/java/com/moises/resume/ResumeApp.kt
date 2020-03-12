@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.moises.presentation.resume.ResumeView
 import com.moises.presentation.skillset.SkillsetView
 import com.moises.resume.core.DiCoreModule
+import com.moises.resume.core.job.DatabaseModule
 import com.moises.resume.ui.resume.di.DaggerResumeComponent
 import com.moises.resume.ui.resume.di.ResumeComponent
 import com.moises.resume.ui.resume.di.ResumeModule
@@ -37,6 +38,7 @@ class ResumeApp : Application() {
         return DaggerSkillsetComponent.builder().
                 diCoreModule(DiCoreModule(fragment))
             .skillsetModule(SkillsetModule(view))
+            .databaseModule(DatabaseModule(this))
             .build()
     }
 }

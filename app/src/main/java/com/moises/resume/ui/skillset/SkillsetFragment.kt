@@ -37,7 +37,7 @@ class SkillsetFragment : Fragment(), SkillsetView {
 
     override fun onResume() {
         super.onResume()
-        skillsetPresenter?.retrieveSkillset()
+        skillsetPresenter?.retrieveSkillset(false)
     }
 
     override fun onStop() {

@@ -1,6 +1,6 @@
 package com.moises.presentation.skillset
 
 interface SkillsetPresenter {
-    fun retrieveSkillset()
+    fun retrieveSkillset(hasInternetConnection : Boolean)
     fun onStop()
 }

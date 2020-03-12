@@ -9,11 +9,13 @@ import com.moises.domain.skillset.repository.SkillsetRepository
 import io.reactivex.Single
 
 class SkillsetUseCase(private val skillsetRepository: SkillsetRepository, jobScheduler: JobScheduler, uiScheduler: UIScheduler)
-    : SingleUseCase<Unit, Skillset>(uiScheduler, jobScheduler) {
+    : SingleUseCase<SkillsetUseCase.SkillsetParams, Skillset>(uiScheduler, jobScheduler) {
 
-    override fun buildUseCase(params: Unit?): Single<Skillset> {
+    override fun buildUseCase(params: SkillsetParams?): Single<Skillset> {
         return params?.let {
-            skillsetRepository.retrieveSkillset()
+            skillsetRepository.retrieveSkillset(params.hasInternetConnection)
         } ?: Single.error(NullParametersException("parameters can not be null"))
     }
+
+    data class SkillsetParams(val hasInternetConnection : Boolean)
 }

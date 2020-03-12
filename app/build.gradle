@@ -8,11 +8,11 @@ apply plugin: 'kotlin-kapt'
 
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.moises.resume"
         minSdkVersion 22
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -51,6 +51,7 @@ ext {
     androidRxLibraryVersion = '2.1.1'
     rxJava = '2.0.2'
     rxCallAdapter = '2.4.0'
+    archRoomVersion = "1.1.1"
 }
 
 dependencies {
@@ -83,6 +84,10 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$androidRxLibraryVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rxJava"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rxCallAdapter"
+
+    implementation "android.arch.persistence.room:runtime:$archRoomVersion"
+    implementation "android.arch.persistence.room:rxjava2:$archRoomVersion"
+    kapt "android.arch.persistence.room:compiler:$archRoomVersion"
 
 
     implementation 'com.squareup.picasso:picasso:2.71828'
