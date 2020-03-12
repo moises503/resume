@@ -1,6 +1,6 @@
 package com.moises.resume.resume.unit
 
-import com.moises.domain.core.Observer
+import com.moises.domain.core.SingleObserver
 import com.moises.domain.core.SingleUseCase
 import com.moises.domain.resume.model.Profile
 import com.moises.resume.RxImmediateSchedulerRule
@@ -19,7 +19,7 @@ class ResumeUseCaseTest {
     @JvmField var testSchedulerRule = RxImmediateSchedulerRule()
 
     lateinit var resumeUseCase: SingleUseCase<Unit, Profile>
-    lateinit var resumeObserver : Observer<Profile>
+    lateinit var resumeObserver : SingleObserver<Profile>
     lateinit var profile : Profile
 
     @Before

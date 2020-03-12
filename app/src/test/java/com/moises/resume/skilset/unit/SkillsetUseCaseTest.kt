@@ -1,6 +1,6 @@
 package com.moises.resume.skilset.unit
 
-import com.moises.domain.core.Observer
+import com.moises.domain.core.SingleObserver
 import com.moises.domain.core.SingleUseCase
 import com.moises.domain.skillset.model.Skillset
 import com.moises.resume.RxImmediateSchedulerRule
@@ -20,7 +20,7 @@ class SkillsetUseCaseTest {
     @JvmField var testSchedulerRule = RxImmediateSchedulerRule()
 
     lateinit var skillsetUseCase: SingleUseCase<Unit, Skillset>
-    lateinit var skillsetObserver : Observer<Skillset>
+    lateinit var skillsetObserver : SingleObserver<Skillset>
     lateinit var skillset: Skillset
 
     @Before

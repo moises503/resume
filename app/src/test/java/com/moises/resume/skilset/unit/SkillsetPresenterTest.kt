@@ -24,20 +24,20 @@ class SkillsetPresenterTest {
 
     @Test
     fun whenAttemptGetSkillsetAndIsDoneDisplayProfileInView() {
-        whenever(skillsetPresenter.retrieveSkillset()).then {
+        whenever(skillsetPresenter.retrieveSkillset(true)).then {
             skillsetView.setSkillset(skillset)
         }
-        skillsetPresenter.retrieveSkillset()
+        skillsetPresenter.retrieveSkillset(true)
         verify(skillsetView, times(1)).setSkillset(skillset)
         verify(skillsetView, never()).showError(errorMessage)
     }
 
     @Test
     fun whenAttemptGetSkillsetAndErrorOccurredDisplayAnError() {
-        whenever(skillsetPresenter.retrieveSkillset()).then {
+        whenever(skillsetPresenter.retrieveSkillset(true)).then {
             skillsetView.showError(errorMessage)
         }
-        skillsetPresenter.retrieveSkillset()
+        skillsetPresenter.retrieveSkillset(true)
         verify(skillsetView, never()).setSkillset(skillset)
         verify(skillsetView, times(1)).showError(errorMessage)
     }

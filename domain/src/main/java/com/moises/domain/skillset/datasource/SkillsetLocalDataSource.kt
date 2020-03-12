@@ -7,6 +7,6 @@ import io.reactivex.Single
 interface SkillsetLocalDataSource {
     fun retrieveSkillset() : Single<Skillset>
     fun insertCourses(courses : List<Course>)
-    fun retrieveCourses() : List<Course>
+    fun retrieveCourses() : Single<List<Course>>
     fun insertOneCourse(course : Course)
 }

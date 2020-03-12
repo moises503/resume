@@ -1,6 +1,6 @@
 package com.moises.presentation.skillset
 
-import com.moises.domain.core.Observer
+import com.moises.domain.core.SingleObserver
 import com.moises.domain.skillset.model.Skillset
 import com.moises.domain.skillset.usecase.SkillsetUseCase
 import com.moises.presentation.core.BasePresenter
@@ -20,7 +20,7 @@ class SkillsetPresenterImpl(
         skillsetUseCase.dispose()
     }
 
-    private inner class SkillsetObserver : Observer<Skillset>() {
+    private inner class SkillsetObserver : SingleObserver<Skillset>() {
         override fun onSuccess(t: Skillset) {
             displayUIElements()
             skillsetView.setSkillset(t)

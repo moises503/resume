@@ -12,19 +12,18 @@ class SkillsetLocalDataSourceImpl(
 ) : SkillsetLocalDataSource {
 
     override fun retrieveSkillset(): Single<Skillset> =
-        Single.just(
-            Skillset(
-                courses = retrieveCourses(),
-                archs = emptyList(),
-                patternArchs = emptyList()
-            )
-        )
+        retrieveCourses().map { courses ->
+            Skillset(courses = courses, archs = emptyList(), patternArchs = emptyList())
+        }
 
     override fun insertCourses(courses: List<Course>) =
         coursesDao.insertAllCourses(courseEntityToCourse.reverseTransformCollection(courses))
 
-    override fun retrieveCourses(): List<Course> =
-        courseEntityToCourse.transformCollection(coursesDao.getAllCourses())
+    override fun retrieveCourses(): Single<List<Course>> =
+        coursesDao.getAllCourses().map { courseEntities ->
+            courseEntityToCourse.transformCollection(courseEntities)
+        }
+
 
     override fun insertOneCourse(course: Course) =
         coursesDao.insertCourse(courseEntityToCourse.reverseTransform(course))

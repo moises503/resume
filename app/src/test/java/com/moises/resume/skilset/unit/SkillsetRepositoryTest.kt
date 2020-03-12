@@ -18,18 +18,18 @@ class SkillsetRepositoryTest {
     fun setup() {
         skillsetRepository = mock()
         skillset = Single.just(SkillsetSeeder.getFakeSkillset())
-        whenever(skillsetRepository.retrieveSkillset()).thenReturn(skillset)
+        whenever(skillsetRepository.retrieveSkillset(true)).thenReturn(skillset)
     }
 
     @Test
     fun whenRepositoryRetrievesASkillsetThisReturnASkillsetObject() {
-        val result = skillsetRepository.retrieveSkillset()
+        val result = skillsetRepository.retrieveSkillset(true)
         assertEquals(result, skillset)
     }
 
     @Test
     fun whenExecuteSkillsetRepositoryAlwaysExecuteOnSuccessMethod() {
-        val testObserver = skillsetRepository.retrieveSkillset().test()
+        val testObserver = skillsetRepository.retrieveSkillset(true).test()
         testObserver.assertComplete()
         testObserver.assertNoErrors()
     }

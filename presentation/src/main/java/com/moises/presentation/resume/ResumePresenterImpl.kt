@@ -1,6 +1,6 @@
 package com.moises.presentation.resume
 
-import com.moises.domain.core.Observer
+import com.moises.domain.core.SingleObserver
 import com.moises.domain.resume.model.Profile
 import com.moises.domain.resume.usecase.ResumeUseCase
 import com.moises.presentation.core.BasePresenter
@@ -18,7 +18,7 @@ class ResumePresenterImpl(private val resumeUseCase: ResumeUseCase, private val 
         resumeUseCase.dispose()
     }
 
-    private inner class ResumeObserver : Observer<Profile>() {
+    private inner class ResumeObserver : SingleObserver<Profile>() {
         override fun onSuccess(t: Profile) {
             resumeView.hideLoading()
             resumeView.showViews()

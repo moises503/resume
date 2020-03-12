@@ -13,6 +13,7 @@ import com.moises.presentation.skillset.SkillsetView
 
 import com.moises.resume.R
 import com.moises.resume.ResumeApp
+import com.moises.resume.core.deviceHasInternetConnection
 import com.moises.resume.core.toast
 import com.moises.resume.ui.skillset.adapters.CoursesAdapter
 import kotlinx.android.synthetic.main.fragment_skills.*
@@ -37,7 +38,7 @@ class SkillsetFragment : Fragment(), SkillsetView {
 
     override fun onResume() {
         super.onResume()
-        skillsetPresenter?.retrieveSkillset(false)
+        skillsetPresenter?.retrieveSkillset(context?.deviceHasInternetConnection() ?: true)
     }
 
     override fun onStop() {
