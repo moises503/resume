@@ -1,5 +1,6 @@
 package com.moises.presentation.skillset
 
+import com.moises.domain.core.ObservableObserver
 import com.moises.domain.core.SingleObserver
 import com.moises.domain.skillset.model.Skillset
 import com.moises.domain.skillset.usecase.SkillsetUseCase
@@ -20,15 +21,18 @@ class SkillsetPresenterImpl(
         skillsetUseCase.dispose()
     }
 
-    private inner class SkillsetObserver : SingleObserver<Skillset>() {
-        override fun onSuccess(t: Skillset) {
+    private inner class SkillsetObserver : ObservableObserver<Skillset>() {
+
+        override fun onComplete() {
             displayUIElements()
-            skillsetView.setSkillset(t)
         }
 
-        override fun onError(e: Throwable) {
-            displayUIElements()
-            skillsetView.showError(e.message ?: "it can not retrieve skillset")
+        override fun onError(e: Throwable?) {
+            skillsetView.showError(e?.message ?: "it can not retrieve skillset")
+        }
+
+        override fun onNext(value: Skillset) {
+            skillsetView.setSkillset(value)
         }
 
         private fun displayUIElements() {
