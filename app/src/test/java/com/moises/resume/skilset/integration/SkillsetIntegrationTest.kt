@@ -18,10 +18,6 @@ import com.moises.presentation.skillset.SkillsetView
 import com.moises.resume.RxImmediateSchedulerRule
 import com.moises.resume.core.job.JobThread
 import com.moises.resume.core.job.UIThread
-import com.moises.resume.framework.datasource.skillset.CourseEntityToCourse
-import com.moises.resume.framework.datasource.skillset.SkillsetLocalDataSourceImpl
-import com.moises.resume.framework.db.DatabaseBuilder
-import com.moises.resume.framework.db.daos.CoursesDao
 import com.moises.resume.skilset.faker.SkillsetSeeder
 import com.nhaarman.mockitokotlin2.*
 import io.reactivex.Single
@@ -37,7 +33,8 @@ class SkillsetIntegrationTest {
     val rule = MockitoJUnit.rule()!!
 
     @Rule
-    @JvmField var testSchedulerRule = RxImmediateSchedulerRule()
+    @JvmField
+    var testSchedulerRule = RxImmediateSchedulerRule()
 
     lateinit var skillsetEndPoint: SkillsetEndPoint
     lateinit var courseItemToCourse: CourseItemToCourse
@@ -45,11 +42,9 @@ class SkillsetIntegrationTest {
     lateinit var skillsetResponseToSkillset: SkillsetResponseToSkillset
     lateinit var skillsetResponse: SkillsetResponse
     lateinit var skillsetRemoteDataSource: SkillsetRemoteDataSource
-    lateinit var courseEntityToCourse: CourseEntityToCourse
-    lateinit var coursesDao: CoursesDao
     lateinit var skillsetLocalDataSource: SkillsetLocalDataSource
     lateinit var skillsetRepository: SkillsetRepository
-    lateinit var skillsetUseCase : SkillsetUseCase
+    lateinit var skillsetUseCase: SkillsetUseCase
     lateinit var skillsetPresenter: SkillsetPresenter
     lateinit var skillsetView: SkillsetView
 
@@ -59,13 +54,15 @@ class SkillsetIntegrationTest {
         skillsetResponse = SkillsetSeeder.getFakeSkillsetResponse()
         courseItemToCourse = CourseItemToCourse()
         skillItemToSkill = SkillItemToSkill()
-        skillsetResponseToSkillset = SkillsetResponseToSkillset(courseItemToCourse, skillItemToSkill)
+        skillsetResponseToSkillset =
+            SkillsetResponseToSkillset(courseItemToCourse, skillItemToSkill)
         skillsetResponse = SkillsetSeeder.getFakeSkillsetResponse()
-        skillsetRemoteDataSource = SkillsetRemoteDataSourceImpl(skillsetEndPoint, skillsetResponseToSkillset)
-        courseEntityToCourse = CourseEntityToCourse()
-        //coursesDao = DatabaseBuilder().buildDatabase(InstrumentationRegistry.getContext())
-        skillsetLocalDataSource = SkillsetLocalDataSourceImpl(coursesDao, courseEntityToCourse)
-        skillsetRepository = SkillsetRepositoryImpl(skillsetRemoteDataSource, skillsetLocalDataSource)
+        skillsetRemoteDataSource =
+            SkillsetRemoteDataSourceImpl(skillsetEndPoint, skillsetResponseToSkillset)
+
+        skillsetLocalDataSource = mock()
+        skillsetRepository =
+            SkillsetRepositoryImpl(skillsetRemoteDataSource, skillsetLocalDataSource)
         skillsetUseCase = SkillsetUseCase(skillsetRepository, JobThread(), UIThread())
         skillsetView = mock()
         skillsetPresenter = SkillsetPresenterImpl(skillsetUseCase, skillsetView)
@@ -76,7 +73,7 @@ class SkillsetIntegrationTest {
         val skillset = skillsetResponseToSkillset.transform(skillsetResponse)
         whenever(skillsetEndPoint.attemptGetSkillset()).thenReturn(Single.just(skillsetResponse))
         skillsetPresenter.retrieveSkillset(true)
-        val captor : KArgumentCaptor<Skillset> = argumentCaptor()
+        val captor: KArgumentCaptor<Skillset> = argumentCaptor()
         verify(skillsetView, times(1)).setSkillset(captor.capture())
         Assert.assertEquals(captor.firstValue, skillset)
     }

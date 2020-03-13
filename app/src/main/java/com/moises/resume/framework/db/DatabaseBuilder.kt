@@ -1,10 +1,10 @@
 package com.moises.resume.framework.db
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
 
 class DatabaseBuilder {
-    fun buildDatabase(app : Application) : DatabaseConfig = Room.databaseBuilder(app,
+    fun buildDatabase(app : Context) : DatabaseConfig = Room.databaseBuilder(app,
         DatabaseConfig::class.java, "moises_resume")
         .fallbackToDestructiveMigration()
         .build()
