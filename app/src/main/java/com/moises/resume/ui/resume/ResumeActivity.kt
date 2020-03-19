@@ -10,6 +10,7 @@ import com.moises.presentation.resume.ResumePresenter
 import com.moises.presentation.resume.ResumeView
 import com.moises.resume.R
 import com.moises.resume.ResumeApp
+import com.moises.resume.core.deviceHasInternetConnection
 import com.moises.resume.core.setToolbar
 import com.moises.resume.ui.resume.adapters.ExperienceAdapter
 import com.squareup.picasso.Picasso
@@ -30,7 +31,7 @@ class ResumeActivity : AppCompatActivity(), ResumeView {
 
     override fun onResume() {
         super.onResume()
-        presenter.attemptGetResume()
+        presenter.attemptGetResume(applicationContext.deviceHasInternetConnection())
     }
 
     override fun showLoading() {

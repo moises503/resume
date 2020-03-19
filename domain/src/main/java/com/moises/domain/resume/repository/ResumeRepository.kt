@@ -4,5 +4,5 @@ import com.moises.domain.resume.model.Profile
 import io.reactivex.Single
 
 interface ResumeRepository {
-    fun attemptGetResume() : Single<Profile>
+    fun attemptGetResume(hasInternetConnection : Boolean) : Single<Profile>
 }

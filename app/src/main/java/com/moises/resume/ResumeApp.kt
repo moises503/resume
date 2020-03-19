@@ -24,6 +24,7 @@ class ResumeApp : Application() {
         return DaggerResumeComponent.builder()
             .diCoreModule(DiCoreModule(fragment))
             .resumeModule(ResumeModule(view))
+            .databaseModule(DatabaseModule(this))
             .build()
     }
 
@@ -31,6 +32,7 @@ class ResumeApp : Application() {
         return DaggerResumeComponent.builder()
             .diCoreModule(DiCoreModule(activity))
             .resumeModule(ResumeModule(view))
+            .databaseModule(DatabaseModule(this))
             .build()
     }
 

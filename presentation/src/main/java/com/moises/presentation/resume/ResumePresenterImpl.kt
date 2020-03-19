@@ -8,10 +8,10 @@ import com.moises.presentation.core.BasePresenter
 class ResumePresenterImpl(private val resumeUseCase: ResumeUseCase, private val resumeView: ResumeView)
     : BasePresenter(), ResumePresenter {
 
-    override fun attemptGetResume() {
+    override fun attemptGetResume(hasInternetConnection : Boolean) {
         resumeView.hideViews()
         resumeView.showLoading()
-        resumeUseCase.execute(Unit, ResumeObserver())
+        resumeUseCase.execute(ResumeUseCase.ResumeParams(hasInternetConnection), ResumeObserver())
     }
 
     override fun onStop() {

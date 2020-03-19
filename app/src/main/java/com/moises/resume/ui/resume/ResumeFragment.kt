@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.moises.domain.resume.model.Profile
@@ -13,6 +12,7 @@ import com.moises.presentation.resume.ResumePresenter
 import com.moises.presentation.resume.ResumeView
 import com.moises.resume.R
 import com.moises.resume.ResumeApp
+import com.moises.resume.core.deviceHasInternetConnection
 import com.moises.resume.core.toast
 import com.moises.resume.ui.resume.adapters.ExperienceAdapter
 import com.squareup.picasso.Picasso
@@ -38,7 +38,7 @@ class ResumeFragment : Fragment(), ResumeView {
 
     override fun onResume() {
         super.onResume()
-        presenter?.attemptGetResume()
+        presenter?.attemptGetResume(context?.deviceHasInternetConnection() ?: true)
     }
 
     override fun showLoading() {
@@ -52,8 +52,8 @@ class ResumeFragment : Fragment(), ResumeView {
     override fun displayProfile(profile: Profile) {
         Picasso.get().load(profile.photo).fit()
             .centerCrop().into(imgvPhoto)
-        txtFullName.text = String.format(profile.fullName!!, "Nombre")
-        txtContactInfo.text = String.format(profile.contactInfo!!, "E-mail", "Teléfono")
+        txtFullName.text = String.format(profile.fullName.orEmpty(), "Nombre")
+        txtContactInfo.text = String.format(profile.contactInfo.orEmpty(), "E-mail", "Teléfono")
         txtLibs.text = profile.libs
         txtPatterns.text = profile.archs
         experienceAdapter.updateDataSet(profile.experience.orEmpty())

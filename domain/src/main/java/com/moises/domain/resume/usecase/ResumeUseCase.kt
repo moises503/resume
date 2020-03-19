@@ -9,11 +9,13 @@ import com.moises.domain.resume.repository.ResumeRepository
 import io.reactivex.Single
 
 class ResumeUseCase(private val resumeRepository: ResumeRepository, jobScheduler: JobScheduler, uiScheduler: UIScheduler)
-    : SingleUseCase<Unit, Profile>(uiScheduler, jobScheduler) {
+    : SingleUseCase<ResumeUseCase.ResumeParams, Profile>(uiScheduler, jobScheduler) {
 
-    override fun buildUseCase(params: Unit?): Single<Profile> {
+    override fun buildUseCase(params: ResumeParams?): Single<Profile> {
         return params?.let {
-            resumeRepository.attemptGetResume()
+            resumeRepository.attemptGetResume(params.hasInternetConnection)
         } ?: Single.error(NullParametersException("parameters can not be null"))
     }
+
+    data class ResumeParams(val hasInternetConnection : Boolean)
 }
