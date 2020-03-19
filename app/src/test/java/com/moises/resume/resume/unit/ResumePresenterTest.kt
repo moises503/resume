@@ -33,20 +33,20 @@ class ResumePresenterTest {
 
     @Test
     fun whenAttemptGetResumeAndIsRightDisplayProfileInView() {
-        whenever(resumePresenter.attemptGetResume()).then {
+        whenever(resumePresenter.attemptGetResume(true)).then {
             resumeView.displayProfile(profile)
         }
-        resumePresenter.attemptGetResume()
+        resumePresenter.attemptGetResume(true)
         verify(resumeView, times(1)).displayProfile(profile)
         verify(resumeView, never()).showError(errorMessage)
     }
 
     @Test
     fun whenAttemptGetResumeAndIsWrongDisplayAnError() {
-        whenever(resumePresenter.attemptGetResume()).then {
+        whenever(resumePresenter.attemptGetResume(true)).then {
             resumeView.showError(errorMessage)
         }
-        resumePresenter.attemptGetResume()
+        resumePresenter.attemptGetResume(true)
         verify(resumeView, never()).displayProfile(profile)
         verify(resumeView, times(1)).showError(errorMessage)
     }

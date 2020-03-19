@@ -20,18 +20,18 @@ class ResumeRepositoryTest {
         profile = Profile("", "", "", "",
             "", "", "", emptyList())
         singleProfile = Single.just(profile)
-        whenever(resumeRepository.attemptGetResume()).thenReturn(singleProfile)
+        whenever(resumeRepository.attemptGetResume(true)).thenReturn(singleProfile)
     }
 
     @Test
     fun whenExecuteRepositoryAlwaysReturnAProfileObject() {
-        val result = resumeRepository.attemptGetResume()
+        val result = resumeRepository.attemptGetResume(true)
         assertEquals(result, singleProfile)
     }
 
     @Test
     fun whenExecuteRepositoryAlwaysExecuteOnSuccessMethod() {
-        val testObserver = resumeRepository.attemptGetResume().test()
+        val testObserver = resumeRepository.attemptGetResume(true).test()
         testObserver.assertComplete()
         testObserver.assertNoErrors()
     }

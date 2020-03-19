@@ -6,6 +6,7 @@ import com.moises.data.resume.mapper.ResumeResponseToProfile
 import com.moises.data.resume.model.Resume
 import com.moises.data.resume.repository.ResumeRepositoryImpl
 import com.moises.domain.resume.datasource.ResumeDataSource
+import com.moises.domain.resume.datasource.ResumeLocalDataSource
 import com.moises.domain.resume.model.Profile
 import com.moises.domain.resume.repository.ResumeRepository
 import com.moises.domain.resume.usecase.ResumeUseCase
@@ -36,6 +37,7 @@ class ResumeIntegrationTest {
     lateinit var repository : ResumeRepository
     lateinit var useCase : ResumeUseCase
     lateinit var dataSource : ResumeDataSource
+    lateinit var localDataSource: ResumeLocalDataSource
     lateinit var mapper : ResumeResponseToProfile
     lateinit var resume : Resume
 
@@ -50,7 +52,8 @@ class ResumeIntegrationTest {
         resume = ResumeSeeder.makeFakeData()
         mapper = ResumeResponseToProfile()
         dataSource = ResumeDataSourceImpl(endPoint, mapper)
-        repository = ResumeRepositoryImpl(dataSource)
+        localDataSource = mock()
+        repository = ResumeRepositoryImpl(dataSource, localDataSource)
         useCase =  ResumeUseCase(repository, JobThread(), UIThread())
         presenter = ResumePresenterImpl(useCase, view)
     }
@@ -59,7 +62,7 @@ class ResumeIntegrationTest {
     fun whenApiReturnsResumeItIsPropagatedToTheViewAsIs() {
         val profile = mapper.transform(resume)
         whenever(endPoint.attemptGetExperience()).thenReturn(Single.just(resume))
-        presenter.attemptGetResume()
+        presenter.attemptGetResume(true)
         val captor : KArgumentCaptor<Profile> = argumentCaptor()
         verify(view, times(1)).displayProfile(captor.capture())
         assertEquals(captor.firstValue, profile)
